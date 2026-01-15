@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "lint": "eslint .",
-    "dev": "eslint . && vite",
-    "build": "eslint . && vite build",
-    "preview": "vite preview"
+    "build": "vite build",
+    "preview": "vite preview",
+    "dev": "eslint . && vite"
   },
   "dependencies": {
     "react": "^19.2.3",

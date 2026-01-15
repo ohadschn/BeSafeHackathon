@@ -4,9 +4,10 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "lint": "eslint .",
+    "build": "",
     "start": "node server",
-    "dev": "eslint . && nodemon server",
-    "lint": "eslint ."
+    "dev": "eslint . && nodemon server"
   },
   "keywords": [],
   "author": "",
