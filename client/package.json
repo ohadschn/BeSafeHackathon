@@ -7,7 +7,7 @@
     "lint": "eslint .",
     "dev": "eslint . && vite",
     "build": "eslint . && vite build",
-    "preview": "eslint . && vite preview"
+    "preview": "vite preview"
   },
   "dependencies": {
     "react": "^19.2.0",

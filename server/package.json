@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "start": "eslint . && node server",
+    "start": "node server",
     "dev": "eslint . && nodemon server",
     "lint": "eslint ."
   },
