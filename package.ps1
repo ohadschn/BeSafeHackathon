@@ -1,0 +1,22 @@
+param(
+    $BuildFolder = $PSScriptRoot,
+    [switch]$SkipPackageCleanupConfirmation
+)
+
+$ErrorActionPreference = 'Stop'
+
+$pkgDir = "$PSScriptRoot/package"
+Write-Host "Preparing package folder at '$pkgDir'..."
+
+if (Test-Path -LiteralPath $pkgDir) {
+    Write-Host "Cleaning up existing package folder..."
+    Remove-Item -LiteralPath $pkgDir -Recurse -Force -Confirm:(!$SkipPackageCleanupConfirmation)
+}
+
+New-Item -ItemType Directory -Path $pkgDir -Verbose
+
+Write-Host "Copying built files to package folder..."
+Copy-Item -Recurse -Force "$BuildFolder/client/dist" $pkgDir
+Copy-Item -Recurse -Force "$BuildFolder/server" $pkgDir
+
+Write-Host "Production bundle ready at '$pkgDir'"

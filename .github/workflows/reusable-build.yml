@@ -1,0 +1,61 @@
+on:
+  workflow_call
+
+jobs:
+  client-lint:
+    uses: ./.github/workflows/reusable-npm.yml
+    with:
+      folder: ./client
+      npm-command: lint
+  
+  server-lint:
+    uses: ./.github/workflows/reusable-npm.yml
+    with:
+      folder: ./server
+      npm-command: lint
+  
+  client-build:
+    uses: ./.github/workflows/reusable-npm.yml
+    with:
+      folder: ./client
+      npm-command: build
+      artifact-name: client-build
+
+  server-build:
+    uses: ./.github/workflows/reusable-npm.yml
+    with:
+      folder: ./server
+      npm-ci-args: "--omit=dev"
+      npm-command: build
+      artifact-name: server-build
+
+  package:
+    needs:
+      - client-build
+      - server-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download client build artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: client-build
+          path: ./build/client
+
+      - name: Download server build artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: server-build
+          path: ./build/server
+          
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Package application
+        shell: pwsh
+        run: ./package.ps1 -BuildFolder ./build
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: application-package
+          path: ./package

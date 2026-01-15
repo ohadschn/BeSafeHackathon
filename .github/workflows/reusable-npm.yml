@@ -1,0 +1,45 @@
+name: Test NPM project (reusable)
+
+on:
+  workflow_call:
+    inputs:
+      folder:
+        required: true
+        type: string
+      npm-ci-args:
+        required: false
+        type: string
+        default: ""
+      npm-command:
+        required: true
+        type: string
+      artifact-name:
+        required: false
+        type: string
+        default: ""
+
+jobs:
+  test-npm:
+    defaults:
+      run:
+        working-directory: ${{ inputs.folder }}
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v6
+    
+    - name: Use Node.js 
+      uses: actions/setup-node@v6
+      with:
+        node-version: 24
+    
+    - run: npm ci ${{ inputs.npm-ci-args }}
+    - run: npm run ${{ inputs.npm-command }}
+
+    - name: Publish build artifacts
+      if: ${{ inputs.artifact-name != '' }}
+      uses: actions/upload-artifact@v6
+      with:
+        name: ${{ inputs.artifact-name }}
+        path: ${{ inputs.folder }}
