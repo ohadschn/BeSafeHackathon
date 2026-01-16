@@ -5,6 +5,10 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+Write-Host "Packaging build files from '$BuildFolder'..."
+$buildFiles = Get-ChildItem -LiteralPath $BuildFolder -Recurse -Force
+Write-Host "Build files: $($buildFiles.FullName -join ', ')"
+
 $pkgDir = "$PSScriptRoot/package"
 Write-Host "Preparing package folder at '$pkgDir'..."
 
