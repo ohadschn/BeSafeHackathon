@@ -36,24 +36,24 @@ jobs:
       - server-build
     runs-on: ubuntu-latest
     steps:
-      - name: Download client build artifact
-        uses: actions/download-artifact@v7
-        with:
-          name: client-build
-          path: ./build/client
+      - name: Checkout repository
+        uses: actions/checkout@v6
 
       - name: Download server build artifact
         uses: actions/download-artifact@v7
         with:
           name: server-build
           path: ./build/server
-          
-      - name: Checkout repository
-        uses: actions/checkout@v6
+
+      - name: Download client build artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: client-build
+          path: ./build/client
 
       - name: Package application
         shell: pwsh
-        run: ./package.ps1 -BuildFolder ./build
+        run: ./package.ps1 -ServerBuild ./build/server -ClientBuild ./build/client
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v6
