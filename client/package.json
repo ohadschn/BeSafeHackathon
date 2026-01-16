@@ -3,10 +3,11 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
+  "packageManager": "npm@11.7.0",
   "scripts": {
     "lint": "eslint .",
     "build": "vite build",
-"test": "echo 'insert test script here'",
+    "test": "echo 'insert test script here'",
     "preview": "vite preview",
     "dev": "eslint . && vite"
   },

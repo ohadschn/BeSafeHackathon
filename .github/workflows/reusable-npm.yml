@@ -38,6 +38,9 @@ jobs:
       uses: actions/setup-node@v6
       with:
         node-version: 24
+        check-latest: true
+        architecture: 'x86'
+        cache-dependency-path: ${{ inputs.folder }}/package-lock.json
     
     - run: npm ci ${{ inputs.npm-ci-args }}
     - run: npm run ${{ inputs.npm-command }}
