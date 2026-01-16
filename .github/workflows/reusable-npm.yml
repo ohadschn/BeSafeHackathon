@@ -1,4 +1,4 @@
-name: Test NPM project (reusable)
+name: Run NPM command (reusable)
 
 on:
   workflow_call:
@@ -19,7 +19,8 @@ on:
         default: ""
 
 jobs:
-  test-npm:
+  run-npm:
+name: "Run NPM command '${{ inputs.npm-command }}' in: ${{ inputs.folder }}"
     defaults:
       run:
         working-directory: ${{ inputs.folder }}
