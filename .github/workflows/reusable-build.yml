@@ -13,8 +13,8 @@ jobs:
     with:
       folder: ./server
       npm-command: lint
-  
-client-test:
+
+  client-test:
     uses: ./.github/workflows/reusable-npm.yml
     with:
       folder: ./client
@@ -70,5 +70,5 @@ client-test:
       - name: Upload package artifact
         uses: actions/upload-artifact@v6
         with:
-          name: application-package
+          name: app-package
           path: ./package
