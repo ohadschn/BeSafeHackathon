@@ -24,7 +24,7 @@ on:
 
 jobs:
   run-npm:
-    name: "Run NPM command '${{ inputs.npm-command }}' in: ${{ inputs.folder }}"
+    name: "npm '${{ inputs.npm-command }}' (${{ inputs.folder }})"
     defaults:
       run:
         working-directory: ${{ inputs.folder }}
