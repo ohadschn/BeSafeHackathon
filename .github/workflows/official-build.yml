@@ -1,4 +1,4 @@
-name: Official Build
+name: Official-Build
 
 on: 
     workflow_dispatch:
