@@ -20,6 +20,7 @@ jobs:
       folder: ./client
       npm-command: build
       artifact-name: client-build
+      artifact-path: ./client/dist
 
   server-build:
     uses: ./.github/workflows/reusable-npm.yml

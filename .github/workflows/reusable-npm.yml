@@ -17,10 +17,14 @@ on:
         required: false
         type: string
         default: ""
+      artifact-path:
+        required: false
+        type: string
+        default: ""
 
 jobs:
   run-npm:
-name: "Run NPM command '${{ inputs.npm-command }}' in: ${{ inputs.folder }}"
+    name: "Run NPM command '${{ inputs.npm-command }}' in: ${{ inputs.folder }}"
     defaults:
       run:
         working-directory: ${{ inputs.folder }}
@@ -43,4 +47,4 @@ name: "Run NPM command '${{ inputs.npm-command }}' in: ${{ inputs.folder }}"
       uses: actions/upload-artifact@v6
       with:
         name: ${{ inputs.artifact-name }}
-        path: ${{ inputs.folder }}
+        path: ${{ inputs.artifact-path != '' && inputs.artifact-path || inputs.folder }}

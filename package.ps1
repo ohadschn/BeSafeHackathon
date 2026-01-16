@@ -20,7 +20,7 @@ if (Test-Path -LiteralPath $pkgDir) {
 New-Item -ItemType Directory -Path $pkgDir -Verbose
 
 Write-Host "Copying built files to package folder..."
-Copy-Item -Recurse -Force "$BuildFolder/client/dist" $pkgDir
+Copy-Item -Recurse -Force "$BuildFolder/client" $pkgDir
 Copy-Item -Recurse -Force "$BuildFolder/server" $pkgDir
 
 Write-Host "Production bundle ready at '$pkgDir'"
