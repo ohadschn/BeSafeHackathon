@@ -39,7 +39,8 @@ jobs:
       with:
         node-version: 24
         check-latest: true
-        architecture: 'x86'
+        architecture: 'x86' # Azure App Service Free is limited to x86: 
+                            # https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#azure-app-service-limits
         cache-dependency-path: ${{ inputs.folder }}/package-lock.json
     
     - run: npm ci ${{ inputs.npm-ci-args }}
