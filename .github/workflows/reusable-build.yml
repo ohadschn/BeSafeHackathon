@@ -14,6 +14,18 @@ jobs:
       folder: ./server
       npm-command: lint
   
+client-test:
+    uses: ./.github/workflows/reusable-npm.yml
+    with:
+      folder: ./client
+      npm-command: test
+  
+  server-test:
+    uses: ./.github/workflows/reusable-npm.yml
+    with:
+      folder: ./server
+      npm-command: test
+  
   client-build:
     uses: ./.github/workflows/reusable-npm.yml
     with:

@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "lint": "eslint .",
-    "build": "",
+    "build": "echo 'insert build script here'",
+    "test": "echo 'insert test script here'",
     "start": "node server",
     "dev": "eslint . && nodemon server"
   },
