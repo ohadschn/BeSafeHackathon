@@ -124,6 +124,9 @@ Contains the Node.js / Express backend application.
 - `images/`: Contains the duck images referenced by the duck data above
 - `routes/`: Defines the API endpoints and maps them to controller functions.
 
+## Setting up CI/CD
+TBD
+
 ## Best practices & Teamwork
 [Full guide](BestPractices.md)
 
