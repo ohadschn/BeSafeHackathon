@@ -10,9 +10,14 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors({
-  origin: process.env.CLIENT_URL
-}));
+if (process.env.CLIENT_URL) {
+  // Dev / cross-origin scenario
+  app.use(cors({
+    origin: process.env.CLIENT_URL
+  }));
+} else {
+  // Prod / same-origin: do nothing, browser considers requests same-origin
+}
 
 app.use(express.static('public')); // Serve client in combined deployment
 app.use('/images', express.static('images')); 
