@@ -134,6 +134,9 @@ Contains the Node.js / Express backend application.
    
 ## Deploying the app
 The repo includes a sample deployment workflow to Azure App Services Web App (which includes a free tier): https://azure.microsoft.com/en-us/products/app-service/web
+- When deployed to a web app, the express server statically exposes the vite-compiled client. 
+  - To emulate this setup locally for debugging, run `localBuild.ps1` followed by `package.ps1` to create a `package` folder similar to the one generated in the workflows.
+  - Then simply run `npm run start` in the `package` folder to have both API and client served on http://localhost:5000/ (you should be able to navigate to that address directly).
 - The model in this repo assumes 3 GitHub environments: https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments
   - `Test` - used to deploy PR build artifacts (manually dispatched via `.github/workflows/deploy-test.yml`)
   - `Stage` - used for continuous deployment (automatically dispatched upon official build completion via `.github/workflows/deploy-stage.yml`)
