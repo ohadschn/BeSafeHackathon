@@ -145,7 +145,6 @@ The repo includes a sample deployment workflow to Azure App Services Web App (wh
   - Under each GitHub environment, specify the corresponding web app's name in the `AZURE_WEBAPP_NAME` environment variable
 - In order for deployment to work, you will need to follow the docs (specifically, create the repo secrets mentioned there for OIDC login): https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions?tabs=openid%2Caspnetcore
 - In order for the deployment job to be able to fetch the built package from the build workflow, you'll need to create a `GH_PAT_ACTIONS_READONLY` repo secret containing a GitHub Personal Access Token (PAT) with `actions:read` permissions on your repo: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
- - In order for the server's CORS configuration to allow the deployed client, you'll need to set the `CLIENT_URL` environment variable in each of your web apps to its domain (e.g. `https://qbsafe.azurewebsites.net`)
 
 
 ## Best practices & Teamwork
