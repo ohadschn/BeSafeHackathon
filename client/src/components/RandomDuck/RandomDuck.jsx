@@ -3,7 +3,7 @@ import styles from './RandomDuck.module.css';
 import { DuckContext } from '../../context/DuckContext';
 import FirstButton from '../common/FirstButton/FirstButton.jsx';
 
-const apiUrl = import.meta.env.VITE_SERVER_API_URL;
+const apiUrl = import.meta.env.VITE_SERVER_API_URL ?? '';
 
 const RandomDuck = () => {
   const { duck, getRandomDuck } = useContext(DuckContext);
