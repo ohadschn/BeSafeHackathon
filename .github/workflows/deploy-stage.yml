@@ -18,5 +18,4 @@ jobs:
         with:
             build-run-id: ${{ github.event.workflow_run.id || inputs.build-run-id }}
             environment: stage
-        secrets: 
-            GH_PAT_ACTIONS_READONLY: ${{ secrets.GH_PAT_ACTIONS_READONLY }}
+        secrets: inherit
