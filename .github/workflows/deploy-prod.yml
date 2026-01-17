@@ -13,3 +13,5 @@ jobs:
         with:
             build-run-id: ${{ inputs.build-run-id }}
             environment: prod
+        secrets: 
+            GH_PAT_ACTIONS_READONLY: ${{ secrets.GH_PAT_ACTIONS_READONLY }}

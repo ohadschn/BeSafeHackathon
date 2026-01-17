@@ -9,6 +9,9 @@ on:
       environment:
         required: true
         type: string
+    secrets:
+      GH_PAT_ACTIONS_READONLY:
+        required: true
 
 permissions:
       id-token: write
