@@ -29,6 +29,7 @@ jobs:
           name: app-package
           run-id: ${{ inputs.build-run-id }}
           github-token: ${{ secrets.GH_PAT_ACTIONS_READONLY }}
+          repository: ${{ github.repository }}
           path: package
 
       - name: 'Azure Login (OIDC)'
