@@ -5,11 +5,16 @@ on:
         workflows: ["Official-Build"]
         types:
             - completed
+    workflow_dispatch:
+        inputs:
+            build-run-id:
+                required: true
+                type: string
 
 jobs:
     deploy-webapp:
         if: ${{ github.event.workflow_run.conclusion == 'success' }}
         uses: ./.github/workflows/reusable-deploy-webapp.yml
         with:
-            build-run-id: ${{ github.event.workflow_run.id }}
+            build-run-id: ${{ github.event.workflow_run.id || inputs.build-run-id }}
             environment: stage
