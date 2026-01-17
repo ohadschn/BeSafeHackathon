@@ -125,7 +125,7 @@ Contains the Node.js / Express backend application.
 - `routes/`: Defines the API endpoints and maps them to controller functions.
 
 ## Setting up CI/CD
-TBD
+* Recommended protect your main branch against direct pushed (only PRs): https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches
 
 ## Best practices & Teamwork
 [Full guide](BestPractices.md)
