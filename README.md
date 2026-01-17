@@ -124,6 +124,27 @@ Contains the Node.js / Express backend application.
 - `images/`: Contains the duck images referenced by the duck data above
 - `routes/`: Defines the API endpoints and maps them to controller functions.
 
+## Setting up Continuous Integration
+- Protect your `main` branch against direct pushes so only PRs are allowed. 
+  - A sample PR validation workflow is provided at `.github/workflows/pr-validation.yml` - note that it contains 7 jobs which can be added as checks.
+  - Recommended - block merge commits and only allow squash (rebase) PR merges.
+  - Docs: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches
+- Upon each merge to `main`, a package will be built by `.github/workflows/official-build.yml`
+  - The same package is also created by the PR validation workflow, to validate that packaging hasn't been broken and to allow test env deployment (see below)
+   
+## Deploying the app
+The repo includes a sample deployment workflow to Azure App Services Web App (which includes a free tier): https://azure.microsoft.com/en-us/products/app-service/web
+- The model in this repo assumes 3 GitHub environments: https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments
+  - `Test` - used to deploy PR build artifacts (manually dispatched via `.github/workflows/deploy-test.yml`)
+  - `Stage` - used for continuous deployment (automatically dispatched upon official build completion via `.github/workflows/deploy-stage.yml`)
+  - `Prod` - used for production deployment of official build artifacts (manually dispatched via `.github/workflows/deploy-prod.yml`)
+- Note that each of the above environments requires its own web app (so you'd have 3 in total)
+  - Under each GitHub environment, specify the corresponding web app's name in the `AZURE_WEBAPP_NAME` environment variable
+- In order for deployment to work, you will need to follow the docs (specifically, create the repo secrets mentioned there for OIDC login): https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions?tabs=openid%2Caspnetcore
+- In order for the deployment job to be able to fetch the built package from the build workflow, you'll need to create a `GH_PAT_ACTIONS_READONLY` repo secret containing a GitHub Personal Access Token (PAT) with `actions:read` permissions on your repo: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+ - In order for the server's CORS configuration to allow the deployed client, you'll need to set the `CLIENT_URL` environment variable in each of your web apps to its domain (e.g. `https://qbsafe.azurewebsites.net`)
+
+
 ## Best practices & Teamwork
 [Full guide](BestPractices.md)
 
