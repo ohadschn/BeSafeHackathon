@@ -1,0 +1,15 @@
+name: Deploy-Prod
+
+on:
+  workflow_dispatch:
+    inputs:
+      build-run-id:
+        required: true
+        type: string
+
+jobs:
+    deploy-webapp:
+        uses: ./.github/workflows/reusable-deploy-webapp.yml
+        with:
+            build-run-id: ${{ inputs.build-run-id }}
+            environment: prod

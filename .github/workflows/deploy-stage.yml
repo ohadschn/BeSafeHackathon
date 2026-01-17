@@ -1,0 +1,15 @@
+name: Deploy-Stage
+
+on:
+    workflow_run:
+        workflows: ["Official-Build"]
+        types:
+            - completed
+
+jobs:
+    deploy-webapp:
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        uses: ./.github/workflows/reusable-deploy-webapp.yml
+        with:
+            build-run-id: ${{ github.event.workflow_run.id }}
+            environment: stage
