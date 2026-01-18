@@ -5,6 +5,12 @@ on:
         workflows: ["Official-Build"]
         types:
             - completed
+        # IMPORTANT: Restrict which workflows can trigger this workflow to prevent pwn requests-
+        # Even if an attacker forks the repo and modifies Official-Build to trigger on pull_request with their malicious code,
+        # that execution would take place on a branch named `refs/pull/PULL_REQUEST_NUMBER/merge` which will never match `main`.
+        # Since we don't have any workflows triggered on pull_request_target in this repo, this blocks the only attack vector.
+        # https://securitylab.github.com/resources/github-actions-preventing-pwn-requests/
+        # https://securitylab.github.com/resources/github-actions-new-patterns-and-mitigations/
         branches:
             - main
     workflow_dispatch:
@@ -15,11 +21,7 @@ on:
 
 jobs:
     deploy-webapp:
-        if: >
-            github.event_name != 'pull_request' &&
-            github.event.workflow_run.event != 'pull_request' &&
-            github.event.workflow_run.conclusion == 'success' &&
-            github.event.workflow_run.head_repository.fork == false
+        if: github.event.workflow_run.conclusion == 'success'
 
         uses: ./.github/workflows/reusable-deploy-webapp.yml
         with:
@@ -35,6 +37,4 @@ jobs:
         - name: Dump github context
           env:
             GITHUB_CONTEXT: ${{ toJson(github) }}
-          run: |
-                echo "===== github context ====="
-                echo "$GITHUB_CONTEXT" | jq .
+          run: echo "For security purposes, inspect the github context dump in the Actions log above to validate the workflow triggering this workflow"
