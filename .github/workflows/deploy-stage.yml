@@ -5,7 +5,7 @@ on:
         workflows: ["Official-Build"]
         types:
             - completed
-branches:
+        branches:
             - main
     workflow_dispatch:
         inputs:
@@ -18,7 +18,7 @@ jobs:
         if: >
             github.event_name != 'pull_request' &&
             github.event.workflow_run.event != 'pull_request' &&
-github.event.workflow_run.conclusion == 'success' &&
+            github.event.workflow_run.conclusion == 'success' &&
             github.event.workflow_run.head_repository.fork == false
 
         uses: ./.github/workflows/reusable-deploy-webapp.yml
@@ -26,3 +26,15 @@ github.event.workflow_run.conclusion == 'success' &&
             build-run-id: ${{ github.event.workflow_run.id || inputs.build-run-id }}
             environment: stage
         secrets: inherit
+
+    dump-context:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        steps:
+        - name: Dump github context
+          env:
+            GITHUB_CONTEXT: ${{ toJson(github) }}
+          run: |
+                echo "===== github context ====="
+                echo "$GITHUB_CONTEXT" | jq .
