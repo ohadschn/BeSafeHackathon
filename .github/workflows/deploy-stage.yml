@@ -5,6 +5,8 @@ on:
         workflows: ["Official-Build"]
         types:
             - completed
+branches:
+            - main
     workflow_dispatch:
         inputs:
             build-run-id:
@@ -13,7 +15,12 @@ on:
 
 jobs:
     deploy-webapp:
-        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        if: >
+            github.event_name != 'pull_request' &&
+            github.event.workflow_run.event != 'pull_request' &&
+github.event.workflow_run.conclusion == 'success' &&
+            github.event.workflow_run.head_repository.fork == false
+
         uses: ./.github/workflows/reusable-deploy-webapp.yml
         with:
             build-run-id: ${{ github.event.workflow_run.id || inputs.build-run-id }}
