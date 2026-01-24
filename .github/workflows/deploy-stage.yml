@@ -21,7 +21,10 @@ on:
 
 jobs:
     deploy-webapp:
-        if: github.event.workflow_run.conclusion == 'success'
+        # Extra safeguard against pwn requests (shouldn't be needed due to the branch restriction above, but added as another layer of defense)
+        if: >
+          github.event.workflow_run.conclusion == 'success' && 
+          (github.event.workflow_run.event == 'push' || github.event.workflow_run.event == 'workflow_dispatch')
 
         uses: ./.github/workflows/reusable-deploy-webapp.yml
         with:
